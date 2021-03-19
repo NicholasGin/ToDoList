@@ -18,7 +18,7 @@ public class ToDoListMain {
                     int temp = 1;
                     while (temp <= Integer.parseInt(numItem)) {
 
-                        System.out.println("Enter item " + temp);
+                        System.out.println("Enter item " + temp + ": ");
                         String item = scan.next();
                         showMissingPriorities(toDoList);
 
@@ -87,7 +87,7 @@ public class ToDoListMain {
         sortedMap.putAll(map);
 
         for (Map.Entry<Integer, String> entry: sortedMap.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
     // checks if input is an integer
@@ -120,7 +120,7 @@ public class ToDoListMain {
             }
 
         }
-        System.out.print("Priorities missing: " + missingNum + "\n");
+        System.out.println("Priorities missing: " + missingNum + "\n" );
 
     }
 }
