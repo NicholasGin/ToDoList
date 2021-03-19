@@ -8,6 +8,8 @@ public class ToDoListMain {
         while (true) {
             System.out.println("What would you like to do?" + "\nadd items (a), delete items(d), show list(s), close program(c)");
             String choice = scan.next();
+
+            // add items and priority to hashmap
             if (choice.equalsIgnoreCase("a")) {
                 System.out.println("How many items: ");
                 String numItem = scan.next();
@@ -25,12 +27,16 @@ public class ToDoListMain {
 
                         if(isInt(priority)) {
                             scan.nextLine();
+
+                            //validate priority greater than 0
                             while (Integer.parseInt(priority) < 1) {
                                 System.out.println("Value must be an integer larger than 0 ");
                                 showMissingPriorities(toDoList);
                                 System.out.println("Enter priority: ");
                                 priority = scan.next();
                             }
+
+                            // validate no duplicate priorities
                             while (toDoList.containsKey(priority)) {
                                 System.out.println("This priority is already used");
                                 showMissingPriorities(toDoList);
@@ -45,12 +51,12 @@ public class ToDoListMain {
 
                     }
                 }
-
+            // displays list and missing priorities
             } else if( choice.equalsIgnoreCase("s")) {
                 sortKey(toDoList);
                 showMissingPriorities(toDoList);
 
-
+            // deletes an item according to priority
             } else if (choice.equalsIgnoreCase("d")) {
                 sortKey(toDoList);
                 System.out.println("Which priority to delete?");
@@ -63,6 +69,8 @@ public class ToDoListMain {
                 } else {
                     System.out.println("The key doesn't exist");
                 }
+
+            // close program
             } else if(choice.equalsIgnoreCase("c")) {
                 break;
             }
@@ -72,7 +80,7 @@ public class ToDoListMain {
             }
         }
     }
-
+    // sorts keys in increasing order
     public static void sortKey(HashMap<Integer, String> map) {
 
         TreeMap<Integer, String> sortedMap = new TreeMap<>();
@@ -82,6 +90,7 @@ public class ToDoListMain {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
+    // checks if input is an integer
     public static boolean isInt(String input) {
         try{
             Integer.parseInt(input);
@@ -92,16 +101,19 @@ public class ToDoListMain {
         }
     }
 
+    // finds the largest priority and displays the missing ones
     public static void showMissingPriorities (HashMap<Integer, String> map ) {
         int maxPriority =0;
 
+        // searches for largest priority
         for (Map.Entry<Integer, String> entry: map.entrySet()) {
             if(entry.getKey() >= maxPriority) {
                 maxPriority = entry.getKey();
             }
         }
+
+        //creates an arraylist to hold missing priorities
         ArrayList missingNum = new ArrayList<Integer>() ;
-        int counter = 0;
         for (int i = 1; i <= maxPriority; i++) {
             if(!map.containsKey(i)) {
                 missingNum.add(i);
